@@ -1,12 +1,10 @@
-package com.lyn.acm;
+package com.yupi.acm;
 
 import java.util.Scanner;
 
 /**
-* ACM 输入模板（多数之和）
-*
-* @author aa
-*/
+ * ACM 输入模板（多数之和）
+ */
 public class MainTemplate {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -28,8 +26,9 @@ public class MainTemplate {
                 sum += num;
             }
 
-            System.out.println("aaa" + sum);
+            System.out.println("Sum: " + sum);
         }
+
         scanner.close();
     }
 }
