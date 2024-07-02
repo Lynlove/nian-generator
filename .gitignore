@@ -3,6 +3,7 @@
 .idea
 target
 nian-generator.iml
+nian-generator-maker/generated
 
 ### Java template
 # Compiled class file
