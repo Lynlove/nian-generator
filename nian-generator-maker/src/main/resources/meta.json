@@ -6,8 +6,9 @@
   "author": "lyn",
   "createTime": "2023-11-22",
   "fileConfig": {
-    "inputRootPath": "D:/code/ideaProject/PlanetProject/nian-generator/nian-generator-demo-projects/acm-template-pro",
+    "inputRootPath": ".source/acm-template-pro",
     "outputRootPath": "generated",
+    "sourceRootPath": "D:/code/ideaProject/PlanetProject/nian-generator/nian-generator-demo-projects/acm-template-pro",
     "type": "dir",
     "files": [
       {
