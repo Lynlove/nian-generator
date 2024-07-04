@@ -11,15 +11,19 @@ public class DataModel {
     /**
      * 是否生成循环
      */
-    private boolean loop;
+    public boolean loop;
 
     /**
      * 作者注释
      */
-    private String author = "yupi";
+    public String author = "yupi";
 
     /**
      * 输出信息
      */
-    private String outputText = "sum = ";
+    public String outputText = "sum = ";
+    /**
+     * 是否生成gitignore
+     */
+    public boolean needGit;
 }
