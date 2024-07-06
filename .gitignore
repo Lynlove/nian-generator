@@ -4,6 +4,7 @@
 target
 nian-generator.iml
 nian-generator-maker/generated
+nian-generator-maker/.temp
 
 ### Java template
 # Compiled class file
