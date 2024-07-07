@@ -36,7 +36,7 @@ public class TemplateMaker {
      * @param templateMakerModelConfig
      * @return
      */
-    private static long makeTemplate(Meta newMeta,
+    public static long makeTemplate(Meta newMeta,
                                      Long id,
                                      String originProjectPath,
                                      TemplateMakerFileConfig templateMakerFileConfig,
@@ -75,8 +75,12 @@ public class TemplateMaker {
 
             // 获取过滤后的文件列表（不会存在目录）
             List<File> fileList = FileFilter.doFilter(inputFilePath, fileInfoConfig.getFilterConfigList());
+            // 修复2：不处理已生成的 .ftl 模板文件
+            fileList = fileList.stream()
+                    .filter(file -> !file.getAbsolutePath().endsWith(".ftl"))
+                    .collect(Collectors.toList());
             for (File file : fileList) {
-                // 新：这里的 makeFileTemplate 方法入参
+                // 这里的 makeFileTemplate 方法入参
                 Meta.FileConfig.FileInfo fileInfo = makeFileTemplate(file, templateMakerModelConfig, sourceRootPath);
                 newFileInfoList.add(fileInfo);
             }
@@ -98,7 +102,6 @@ public class TemplateMaker {
             groupFileInfo.setFiles(newFileInfoList);
             newFileInfoList = new ArrayList<>();
             newFileInfoList.add(groupFileInfo);
-
         }
 
         // 处理模型信息
@@ -134,7 +137,7 @@ public class TemplateMaker {
 
 
         // 三、生成配置文件
-        String metaOutputPath = sourceRootPath + File.separator + "meta.json";
+        String metaOutputPath = templatePath + File.separator + "meta.json";
 
         // 如果已有meta.json文件，则为非首次制作
         if (FileUtil.exist(metaOutputPath)) {
@@ -193,13 +196,15 @@ public class TemplateMaker {
 
         // 二、使用字符串替换，生成模板文件
         String fileContent = null;
-        // 如果已有.ftl文件，则为非首次制作
-        if (FileUtil.exist(fileOutputAbsolutePath)) {
+
+        // 如果已有模板文件，说明不是第一次制作，则在模板基础上再次挖坑
+        boolean hasTemplateFile = FileUtil.exist(fileOutputAbsolutePath);
+        if (hasTemplateFile) {
             fileContent = FileUtil.readUtf8String(fileOutputAbsolutePath);
         } else {
-            // 读取原文件
             fileContent = FileUtil.readUtf8String(fileInputAbsolutePath);
         }
+
         // 支持多个模型：对同一个文件的内容，遍历模型进行多轮替换
         TemplateMakerModelConfig.ModelGroupConfig modelGroupConfig = templateMakerModelConfig.getModelGroupConfig();
         String newFileContent = fileContent;
@@ -220,19 +225,27 @@ public class TemplateMaker {
 
         // 将文件配置 fileInfo 的构造提前，无论是新增还是修改元信息都能使用该对象
         Meta.FileConfig.FileInfo fileInfo = new Meta.FileConfig.FileInfo();
-        fileInfo.setInputPath(fileInputPath);
-        fileInfo.setOutputPath(fileOutputPath);
+        // 修复3：注意文件的输入路径和输出路径要交换，元信息中 .ftl 文件是输入文件
+        fileInfo.setInputPath(fileOutputPath);
+        fileInfo.setOutputPath(fileInputPath);
         fileInfo.setType(FileTypeEnum.FILE.getValue());
-        // fileInfo.setGenerateType(FileGenerateTypeEnum.DYNAMIC.getValue());
+        fileInfo.setGenerateType(FileGenerateTypeEnum.DYNAMIC.getValue());
 
-        // 和原文件一致，没有挖坑，则为静态生成
-        if (newFileContent.equals(fileContent)) {
-            // 输出路径 = 输入路径
-            fileInfo.setOutputPath(fileInputPath);
-            fileInfo.setGenerateType(FileGenerateTypeEnum.STATIC.getValue());
-        } else {
-            // 生成模板文件
-            fileInfo.setGenerateType(FileGenerateTypeEnum.DYNAMIC.getValue());
+        // 修复1：既要hasTemplateFile为false 且和原文件一致，没有挖坑，则为静态生成
+        // 是否更改了文件内容
+        boolean contentEquals = newFileContent.equals(fileContent);
+        // 之前不存在模板文件，并且没有更改文件内容，则为静态生成
+        if (!hasTemplateFile) {
+            if (contentEquals) {
+                // 输出路径 = 输入路径
+                fileInfo.setOutputPath(fileInputPath);
+                fileInfo.setGenerateType(FileGenerateTypeEnum.STATIC.getValue());
+            } else {
+                // 没有模板文件，需要挖坑，生成模板文件
+                FileUtil.writeUtf8String(newFileContent, fileOutputAbsolutePath);
+            }
+        } else if (!contentEquals) {
+            // 有模板文件，且增加了新坑，生成模板文件
             FileUtil.writeUtf8String(newFileContent, fileOutputAbsolutePath);
         }
         return fileInfo;
@@ -354,7 +367,7 @@ public class TemplateMaker {
             List<Meta.FileConfig.FileInfo> newFileInfoList = new ArrayList<>(tempFileInfoList.stream()
                     .flatMap(fileInfo -> fileInfo.getFiles().stream())
                     .collect(
-                            Collectors.toMap(Meta.FileConfig.FileInfo::getInputPath, o -> o, (e, r) -> r)
+                            Collectors.toMap(Meta.FileConfig.FileInfo::getOutputPath, o -> o, (e, r) -> r)
                     ).values());
 
             // 使用新的 group 配置
@@ -372,7 +385,7 @@ public class TemplateMaker {
                 .collect(Collectors.toList());
         resultList.addAll(new ArrayList<>(noGroupFileInfoList.stream()
                 .collect(
-                        Collectors.toMap(Meta.FileConfig.FileInfo::getInputPath, o -> o, (e, r) -> r)
+                        Collectors.toMap(Meta.FileConfig.FileInfo::getOutputPath, o -> o, (e, r) -> r)
                 ).values()));
         return resultList;
     }
