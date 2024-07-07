@@ -13,6 +13,7 @@ import com.lyn.maker.meta.enums.FileTypeEnum;
 import com.lyn.maker.template.enums.FileFilterRangeEnum;
 import com.lyn.maker.template.enums.FileFilterRuleEnum;
 import com.lyn.maker.template.model.FileFilterConfig;
+import com.lyn.maker.template.model.TemplateMakerConfig;
 import com.lyn.maker.template.model.TemplateMakerFileConfig;
 import com.lyn.maker.template.model.TemplateMakerModelConfig;
 
@@ -25,6 +26,22 @@ import java.util.stream.Collectors;
  * 第七期：模板制作工具
  */
 public class TemplateMaker {
+    /**
+     * 制作模板（新增）
+     *
+     * @param templateMakerConfig
+     * @return
+     */
+    public static long makeTemplate(TemplateMakerConfig templateMakerConfig) {
+        Meta meta = templateMakerConfig.getMeta();
+        Long id = templateMakerConfig.getId();
+        String originProjectPath = templateMakerConfig.getOriginProjectPath();
+        TemplateMakerFileConfig templateMakerFileConfig = templateMakerConfig.getFileConfig();
+        TemplateMakerModelConfig templateMakerModelConfig = templateMakerConfig.getModelConfig();
+
+        return makeTemplate(meta, id, originProjectPath, templateMakerFileConfig, templateMakerModelConfig);
+    }
+
 
     /**
      * 制作模板（分步能力制作）
