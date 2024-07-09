@@ -1,4 +1,4 @@
-package com.lyn.web.model.dto.Generator;
+package com.lyn.web.model.dto.generator;
 
 import com.lyn.web.common.PageRequest;
 import lombok.Data;

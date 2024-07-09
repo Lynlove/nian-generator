@@ -3,7 +3,7 @@ package com.lyn.web.service;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.lyn.web.model.dto.Generator.GeneratorQueryRequest;
+import com.lyn.web.model.dto.generator.GeneratorQueryRequest;
 import com.lyn.web.model.entity.Generator;
 import com.lyn.web.model.vo.GeneratorVO;
 

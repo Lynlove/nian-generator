@@ -9,7 +9,7 @@ import com.lyn.web.constant.CommonConstant;
 import com.lyn.web.exception.BusinessException;
 import com.lyn.web.exception.ThrowUtils;
 import com.lyn.web.mapper.GeneratorMapper;
-import com.lyn.web.model.dto.Generator.GeneratorQueryRequest;
+import com.lyn.web.model.dto.generator.GeneratorQueryRequest;
 import com.lyn.web.model.entity.Generator;
 import com.lyn.web.model.entity.User;
 import com.lyn.web.model.vo.GeneratorVO;

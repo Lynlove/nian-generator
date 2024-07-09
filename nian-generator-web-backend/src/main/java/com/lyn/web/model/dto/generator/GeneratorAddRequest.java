@@ -1,4 +1,4 @@
-package com.lyn.web.model.dto.Generator;
+package com.lyn.web.model.dto.generator;
 
 import com.lyn.web.meta.Meta;
 import lombok.Data;
@@ -7,15 +7,10 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 更新请求
+ * 创建请求
  */
 @Data
-public class GeneratorUpdateRequest implements Serializable {
-
-    /**
-     * id
-     */
-    private Long id;
+public class GeneratorAddRequest implements Serializable {
 
     /**
      * 名称
