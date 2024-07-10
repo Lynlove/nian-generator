@@ -3,6 +3,7 @@ package com.lyn.maker.generator.main;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.resource.ClassPathResource;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.util.ZipUtil;
 import com.lyn.maker.generator.JarGenerator;
 import com.lyn.maker.generator.ScriptGenerator;
 import com.lyn.maker.generator.file.DynamicFileGenerator;
@@ -39,6 +40,19 @@ public abstract class GenerateTemplate {
 
         // 5、生成精简版的程序（产物包）
         buildDist(outputPath, sourceCopyDestPath, jarPath, shellOutputFilePath);
+    }
+
+
+    /**
+     * 制作压缩包
+     *
+     * @param outputPath
+     * @return 压缩包路径
+     */
+    protected String buildZip(String outputPath) {
+        String zipPath = outputPath + ".zip";
+        ZipUtil.zip(outputPath, zipPath);
+        return zipPath;
     }
 
     /**
@@ -166,8 +180,9 @@ public abstract class GenerateTemplate {
      * @param jarPath
      * @param shellOutputFilePath
      * @throws IOException
+     * @return 产物包路径
      */
-    protected void buildDist(String outputPath, String sourceCopyDestPath, String jarPath, String shellOutputFilePath) throws IOException {
+    protected String buildDist(String outputPath, String sourceCopyDestPath, String jarPath, String shellOutputFilePath) throws IOException {
         // 生成精简版的程序（产物包）
         String distOutputPath = outputPath + "-dist";
         // - 拷贝 jar 包
@@ -180,6 +195,7 @@ public abstract class GenerateTemplate {
         FileUtil.copy(shellOutputFilePath + ".bat", distOutputPath, true);
         // - 拷贝源模板文件
         FileUtil.copy(sourceCopyDestPath, distOutputPath, true);
+        return distOutputPath;
     }
 
 

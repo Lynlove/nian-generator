@@ -5,7 +5,8 @@ import java.io.IOException;
 
 public class MainGenerator extends GenerateTemplate {
     @Override
-    protected void buildDist(String outputPath, String sourceCopyDestPath, String jarPath, String shellOutputFilePath) throws IOException {
+    protected String buildDist(String outputPath, String sourceCopyDestPath, String jarPath, String shellOutputFilePath) throws IOException {
         System.out.println("不要输出dist");
+        return "";
     }
 }

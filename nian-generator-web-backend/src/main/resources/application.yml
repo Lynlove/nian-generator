@@ -63,14 +63,6 @@ mybatis-plus:
       logic-delete-value: 1 # 逻辑已删除值（默认为 1）
       logic-not-delete-value: 0 # 逻辑未删除值（默认为 0）
 
-# 对象存储
-# todo 需替换配置
-cos:
-  client:
-    accessKey: AKIDmNkuqbAWeaIn36yg2A6oIZgcVFqTYbWD
-    secretKey: ZbPzNd4eaLsAE3NbcQ2lWBjHi6W58Maw
-    region: ap-shanghai
-    bucket: lyn-1306837533
 # 接口文档配置
 knife4j:
   enable: true

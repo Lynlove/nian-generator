@@ -11,13 +11,16 @@ import com.lyn.maker.meta.Meta;
 import com.lyn.maker.meta.enums.FileGenerateTypeEnum;
 import com.lyn.maker.meta.enums.FileTypeEnum;
 import com.lyn.maker.template.TemplateMakerUtils.TemplateMakerUtils;
-import com.lyn.maker.template.enums.FileFilterRangeEnum;
-import com.lyn.maker.template.enums.FileFilterRuleEnum;
-import com.lyn.maker.template.model.*;
+import com.lyn.maker.template.model.TemplateMakerConfig;
+import com.lyn.maker.template.model.TemplateMakerFileConfig;
+import com.lyn.maker.template.model.TemplateMakerModelConfig;
+import com.lyn.maker.template.model.TemplateMakerOutputConfig;
 
 import java.io.File;
-import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
