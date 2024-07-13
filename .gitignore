@@ -7,6 +7,7 @@ nian-generator-maker/generated
 nian-generator-maker/.temp
 
 nian-generator-web-backend/src/main/resources/application-local.yml
+nian-generator-web-backend/.temp
 
 ### Java template
 # Compiled class file
