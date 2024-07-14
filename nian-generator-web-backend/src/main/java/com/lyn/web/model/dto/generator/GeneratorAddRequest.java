@@ -1,6 +1,6 @@
 package com.lyn.web.model.dto.generator;
 
-import com.lyn.web.meta.Meta;
+import com.lyn.maker.meta.Meta;
 import lombok.Data;
 
 import java.io.Serializable;

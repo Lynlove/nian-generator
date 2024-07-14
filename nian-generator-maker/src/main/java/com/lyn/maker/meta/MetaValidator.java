@@ -112,7 +112,6 @@ public class MetaValidator {
                 fileInfo.setOutputPath(inputPath);
             }
             // type：默认 inputPath 有文件后缀（如 .java）为 file，否则为 dir
-            type = fileInfo.getType();
             if (StrUtil.isBlank(type)) {
                 // 无文件后缀
                 if (StrUtil.isBlank(FileUtil.getSuffix(inputPath))) {
@@ -132,7 +131,8 @@ public class MetaValidator {
                 }
             }
         }
-    }public static void validAndFillMetaRoot(Meta meta) {
+    }
+    public static void validAndFillMetaRoot(Meta meta) {
         // 校验并填充默认值
         String name = StrUtil.blankToDefault(meta.getName(), "my-generator");
         String description = StrUtil.emptyToDefault(meta.getDescription(), "我的模板代码生成器");

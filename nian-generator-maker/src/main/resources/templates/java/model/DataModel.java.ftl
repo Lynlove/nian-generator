@@ -26,7 +26,7 @@ public class DataModel {
         public ${modelInfo.type} ${modelInfo.groupKey} = new ${modelInfo.type}();
 
         /**
-        * ${modelInfo.description}
+        * ${modelInfo.description!"描述为空"}
         */
         @Data
         public static class ${modelInfo.type} {

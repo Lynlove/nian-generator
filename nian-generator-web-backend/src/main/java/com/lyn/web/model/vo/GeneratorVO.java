@@ -1,7 +1,7 @@
 package com.lyn.web.model.vo;
 
 import cn.hutool.json.JSONUtil;
-import com.lyn.web.meta.Meta;
+import com.lyn.maker.meta.Meta;
 import com.lyn.web.model.entity.Generator;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;

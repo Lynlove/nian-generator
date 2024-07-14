@@ -1,7 +1,6 @@
 package com.lyn.maker.generator.main;
 
 import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.io.resource.ClassPathResource;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.ZipUtil;
 import com.lyn.maker.generator.JarGenerator;
@@ -22,6 +21,10 @@ public abstract class GenerateTemplate {
         // 输出根路径
         String projectPath = System.getProperty("user.dir");
         String outputPath = projectPath + File.separator + "generated" + File.separator + meta.getName();
+        doGenerate(meta, outputPath);
+    }
+
+    public void doGenerate(Meta meta, String outputPath) throws TemplateException, IOException, InterruptedException {
         if (!FileUtil.exist(outputPath)) {
             FileUtil.mkdir(outputPath);
         }
@@ -77,9 +80,10 @@ public abstract class GenerateTemplate {
      * @throws TemplateException
      */
     protected void generateCode(Meta meta, String outputPath) throws IOException, TemplateException {
-        // 读取 resources 目录
-        ClassPathResource classPathResource = new ClassPathResource("");
-        String inputResourcePath = classPathResource.getAbsolutePath();
+        // 读取 resources 目录(解决打包后找不到resource目录的问题，使用相对路径生成文件)
+//        ClassPathResource classPathResource = new ClassPathResource("");
+//        String inputResourcePath = classPathResource.getAbsolutePath();
+        String inputResourcePath = "";
 
         // Java 包基础路径
         String outputBasePackage = meta.getBasePackage();
@@ -145,7 +149,7 @@ public abstract class GenerateTemplate {
         DynamicFileGenerator.doGenerate(inputFilePath , outputFilePath, meta);
 
         // README.md
-        inputFilePath = inputResourcePath + File.separator + "README.md.ftl";
+        inputFilePath = inputResourcePath + File.separator + "templates/README.md.ftl";
         outputFilePath = outputPath + File.separator + "README.md";
         DynamicFileGenerator.doGenerate(inputFilePath , outputFilePath, meta);
     }
@@ -206,3 +210,4 @@ public abstract class GenerateTemplate {
 
 
 }
+

@@ -29,7 +29,7 @@ ${modelInfo?index + 1}）<#if modelInfo.fieldName??>${modelInfo.fieldName}</#if>
 
 类型：${modelInfo.type}
 
-描述：${modelInfo.description}
+描述：${modelInfo.description!"描述为空"}
 
 <#if modelInfo.defaultValue??>默认值：<#if modelInfo.defaultValue?is_boolean><#if modelInfo.defaultValue==true>是<#else>否</#if><#else>${modelInfo.defaultValue}</#if></#if>
 
