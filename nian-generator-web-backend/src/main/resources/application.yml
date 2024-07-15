@@ -25,11 +25,11 @@ spring:
     password: root
   # Redis 配置
   # todo 需替换配置，然后取消注释
-#  redis:
-#    database: 1
-#    host: localhost
-#    port: 6379
-#    timeout: 5000
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+    timeout: 5000
 
 # 沒有密碼不要配置密碼
 #    password: 123456
@@ -44,7 +44,11 @@ spring:
     multipart:
       # 大小限制
       max-file-size: 10MB
+      max-request-size: 10MB
 server:
+  tomcat:
+    threads:
+      max: 1024
   address: 0.0.0.0
   port: 8120
   servlet:
