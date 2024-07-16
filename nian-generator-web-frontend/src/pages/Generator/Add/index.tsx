@@ -175,34 +175,37 @@ const GeneratorAddPage: React.FC = () => {
             title="模型配置"
             onFinish={async (values) => {
               const models = values['modelConfig']['models'];
-              for (let i = 0; i < models.length; i++) {
-                const model = models[i];
-                if (model.groupKey) {
-                  for (let j = 0; j < model.models.length; j++) {
-                    const subModel = model.models[j];
+              if (models) {
+                for (let i = 0; i < models.length; i++) {
+                  const model = models[i];
+                  if (model.groupKey) {
+                    for (let j = 0; j < model.models.length; j++) {
+                      const subModel = model.models[j];
 
-                    if (subModel.type === 'boolean') {
-                      if (subModel.defaultValue === 'true') {
-                        subModel.defaultValue = true;
+                      if (subModel.type === 'boolean') {
+                        if (subModel.defaultValue === 'true') {
+                          subModel.defaultValue = true;
+                        }
+                        if (subModel.defaultValue === 'false') {
+                          subModel.defaultValue = false;
+                        }
+                        console.log(subModel);
                       }
-                      if (subModel.defaultValue === 'false') {
-                        subModel.defaultValue = false;
+                    }
+                  } else {
+                    if (model.type === 'boolean') {
+                      if (model.defaultValue === 'true') {
+                        model.defaultValue = true;
                       }
-                      console.log(subModel);
+                      if (model.defaultValue === 'false') {
+                        model.defaultValue = false;
+                      }
+                      console.log(model);
                     }
-                  }
-                } else {
-                  if (model.type === 'boolean') {
-                    if (model.defaultValue === 'true') {
-                      model.defaultValue = true;
-                    }
-                    if (model.defaultValue === 'false') {
-                      model.defaultValue = false;
-                    }
-                    console.log(model);
                   }
                 }
               }
+
               console.log(values);
               setModelConfig(values);
               return true;
