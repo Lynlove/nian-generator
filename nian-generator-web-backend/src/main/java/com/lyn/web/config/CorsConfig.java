@@ -12,6 +12,7 @@ public class CorsConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
+        System.out.println("跨域配置设置");
         // 覆盖所有请求
         registry.addMapping("/**")
                 // 允许发送 Cookie

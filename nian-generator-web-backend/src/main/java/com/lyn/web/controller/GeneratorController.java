@@ -448,7 +448,7 @@ public class GeneratorController {
         File scriptFile = FileUtil.loopFiles(unzipDistDir, 2, null)
                 .stream()
                 .filter(file -> file.isFile()
-                        && "generator.bat".equals(file.getName()))
+                        && "generator".equals(file.getName()))
                 .findFirst()
                 .orElseThrow(RuntimeException::new);
 
@@ -462,9 +462,17 @@ public class GeneratorController {
 
         // 构造命令
         File scriptDir = scriptFile.getParentFile();
+
+        // win 系统
+//        String scriptAbsolutePath = scriptFile.getAbsolutePath().replace("\\", "/");
+//        String[] commands = new String[]{scriptAbsolutePath, "json-generate", "--file=" + dataModelFilePath};
+
         // 注意，如果是 mac / linux 系统，要用 "./generator"
-        String scriptAbsolutePath = scriptFile.getAbsolutePath().replace("\\", "/");
+        String scriptAbsolutePath = scriptFile.getAbsolutePath();
         String[] commands = new String[]{scriptAbsolutePath, "json-generate", "--file=" + dataModelFilePath};
+
+        // 注意，如果是 mac / linux 系统，要用 "./generator"
+
 
         // 这里一定要拆分
         ProcessBuilder processBuilder = new ProcessBuilder(commands);
