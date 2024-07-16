@@ -1,5 +1,5 @@
 # nian-定制化代码生成项目
-**在线访问地址** http://affectionate.icu:8000/
+**在线访问地址** http://124.223.46.236:8000/
 
 深入业务场景的企业级硬项目，基于 React + Spring Boot + Picocli + 对象存储的 代码生成器共享平台 。
 
