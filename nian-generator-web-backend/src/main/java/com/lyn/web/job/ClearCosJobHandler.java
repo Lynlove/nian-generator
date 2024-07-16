@@ -1,5 +1,6 @@
 package com.lyn.web.job;
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import com.lyn.web.manager.CosManager;
 import com.lyn.web.mapper.GeneratorMapper;
@@ -42,7 +43,10 @@ public class ClearCosJobHandler {
                 .map(distPath -> distPath.substring(1))
                 .collect(Collectors.toList());
 
-        cosManager.deleteObjects(keyList);
+        log.info("clearCosJobHandler delete keyList: " + keyList);
+        if (CollectionUtil.isNotEmpty(keyList)){
+            cosManager.deleteObjects(keyList);
+        }
         log.info("clearCosJobHandler end");
     }
 
